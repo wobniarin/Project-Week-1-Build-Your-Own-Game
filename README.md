@@ -1,6 +1,6 @@
 <img src="https://bit.ly/2VnXWr2" alt="Ironhack Logo" width="100"/>
 
-# Netflix Series Hangman
+# Ice-cream flavors Hangman
 *Íngrid Munné Collado*
 
 *Data Analytics Bootcamp. June 2019. Ironhack Barcelona*
@@ -20,8 +20,9 @@ This is the first project developed during the Full-Time Data Analytics Bootcamp
 
 - The player plays against the computer
 - The computer has a finite list of words to be chosen as the word to be discovered
-- There's no limit of time. There's a limit on attempts: 9
+- There's no limit of time. There's a limit on attempts: 6
 - I print all the letters that have been told and are missed
+- You don't lose an attempt if you write a repeated letter or you don't write a letter. 
 
 
 <a name="workflow"></a>
