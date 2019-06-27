@@ -1,7 +1,7 @@
 ############################################# Hangman game #############################################################
 
 import random
-import sys
+
 
 ###################### FUNCTION DEFINITION
 
@@ -64,6 +64,17 @@ def valid_letter(letter):
 
     return validation
 
+def new_attempt(num_attempts):
+    print(f"Remaining attemps: {num_attempts}")
+    user_choice = input("Write the letter you want to guess: ")
+    return user_choice.lower()
+
+def initial_hint(hidden_word_char):
+    print("HINT: You should discover the hidden ice-cream flavor")
+    print_word_status(hidden_word_char)
+
+
+####################################### GAME ##########################################################################
 
 welcome_message()
 
@@ -77,17 +88,12 @@ hidden_word_char = '_' * len(hidden_word)
 
 #### Game play
 
-
-print("HINT: You should discover the hidden ice-cream flavor")
-print_word_status(hidden_word_char)
+initial_hint(hidden_word_char)
 
 
 while num_attempts != 0 and not discovered_word:
 
-    print(f"Remaining attemps: {num_attempts}")
-    user_letter = input("Write the letter you want to guess: ")
-    user_letter = user_letter.lower()
-
+    user_letter = new_attempt(num_attempts)
 
     #letter validation
     if not user_letter.isalpha(): # not alphabetic value
