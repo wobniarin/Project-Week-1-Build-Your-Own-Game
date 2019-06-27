@@ -116,7 +116,7 @@ def drawHangman(counter):
         drawTorso()
     elif counter == 5:
         drawLegs()
-        turtle.done()
+
 
 
 def winner_loser(discovered_word, num_attempts):
