@@ -1,0 +1,31 @@
+################################ Hangman game ############################################
+
+import random
+import sys
+
+##### Welcome message
+
+player_name = input("Type your name: ")
+hangman_type= 'Ice-cream flavors'
+print(f"Hello {player_name}. You are going to play the {hangman_type} game")
+
+print("""These are the rules of the game: 
+
+    You play against the computer
+    There's no limit of time, but there's a limit on attempts: 9
+    The computer will print all the letters that have been told and are wrong
+
+    GOOD LUCK! (:
+    
+""")
+
+##### Random word choice
+
+list_of_words= ['cookies', 'stracciatella', 'strawberry', 'chococolate', 'vanilla', 'milk', 'lemon']
+
+hidden_word = random.choice(list_of_words)
+
+print(hidden_word)
+
+print("You should discovered the hidden ice-cream flavor")
+
