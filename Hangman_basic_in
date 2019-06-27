@@ -1,31 +1,130 @@
-################################ Hangman game ############################################
+############################################# Hangman game #############################################################
 
 import random
 import sys
 
-##### Welcome message
+###################### FUNCTION DEFINITION
 
-player_name = input("Type your name: ")
-hangman_type= 'Ice-cream flavors'
-print(f"Hello {player_name}. You are going to play the {hangman_type} game")
+def index_character(hidden_word, user_letter):
 
-print("""These are the rules of the game: 
+    letter_index = [index for index, letter in enumerate(hidden_word) if letter == user_letter]
 
-    You play against the computer
-    There's no limit of time, but there's a limit on attempts: 9
-    The computer will print all the letters that have been told and are wrong
+    return letter_index
 
-    GOOD LUCK! (:
+
+def replace_char(hidden_word_char, letter_index, user_letter):
+    for i in letter_index:
+        hidden_word_char = hidden_word_char[0:i]+ user_letter + hidden_word_char[i+1:]
+    return hidden_word_char
+
+
+def print_word_status(hidden_word_char):
+    print(*hidden_word_char, sep=" ")
+    print("")
+
+
+def winner_loser(discovered_word, num_attempts):
+    if discovered_word == True:
+        print("Congratulations! You've won!")
+    elif num_attempts == 0 :
+        print("I'm sorry, you're DEAD X(")
+
+
+def welcome_message():
+    player_name = input("Type your name: ")
+    hangman_type= 'Ice-cream flavors'
+    print(f"Hello {player_name}. You are going to play the {hangman_type} hangman game")
+
+    print("""These are the rules of the game: 
+
+        You play against the computer
+        There's no limit of time, but there's a limit on attempts: 9
+        The computer will print all the letters that have been told and are wrong
+
+        GOOD LUCK! (:
     
-""")
+    """)
 
-##### Random word choice
+def random_word():
+    list_of_words = ['cookies', 'stracciatella', 'strawberry', 'chocolate', 'vanilla', 'milk', 'lemon']
 
-list_of_words= ['cookies', 'stracciatella', 'strawberry', 'chococolate', 'vanilla', 'milk', 'lemon']
+    return random.choice(list_of_words)
 
-hidden_word = random.choice(list_of_words)
 
-print(hidden_word)
+def valid_letter(letter):
+    validation = False
+    if not letter.isalpha(): # not alphabetic value
+        print('Please, enter only a LETTER')
+        validation = True
+    elif len(letter) != 1: #more than one character
+        print('Please, enter only a SINGLE letter')
 
-print("You should discovered the hidden ice-cream flavor")
+    elif letter in guessed_letters or letter in missed_letters: #letter has already been said
+        print('You have already said this letter')
+
+    return validation
+
+
+welcome_message()
+
+hidden_word = random_word()
+
+num_attempts = 9
+missed_letters= []
+guessed_letters = []
+discovered_word = False
+hidden_word_char = '_' * len(hidden_word)
+
+#### Game play
+
+
+print("HINT: You should discover the hidden ice-cream flavor")
+print_word_status(hidden_word_char)
+
+
+while num_attempts != 0 and not discovered_word:
+
+    print(f"Remaining attemps: {num_attempts}")
+    user_letter = input("Write the letter you want to guess: ")
+    user_letter = user_letter.lower()
+
+
+    #letter validation
+    if not user_letter.isalpha(): # not alphabetic value
+        print('Please, enter only a LETTER')
+        validation = True
+        continue
+    elif len(user_letter) > 1: #more than one character
+        print('Please, enter only a SINGLE letter')
+        continue
+    elif user_letter in guessed_letters or user_letter in missed_letters: #letter has already been said
+        print('You have already said this letter')
+        continue
+
+    #if letter is on the word
+    if  user_letter in hidden_word and user_letter not in guessed_letters:
+        print("You're right!")
+        guessed_letters.append(user_letter)
+
+        letter_index = index_character(hidden_word, user_letter)
+        hidden_word_char = replace_char(hidden_word_char, letter_index, user_letter)
+
+        if hidden_word == hidden_word_char:
+            discovered_word = True
+
+    #if letter is wrong
+    elif user_letter not in hidden_word and user_letter not in missed_letters:
+        print("This letter is not in the word!")
+        missed_letters.append(user_letter)
+        print(f"Wrong letters: {missed_letters}")
+        num_attempts -= 1
+
+
+
+    print_word_status(hidden_word_char)
+
+    winner_loser(discovered_word,num_attempts)
+
+
+
 
