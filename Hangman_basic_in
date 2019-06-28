@@ -172,8 +172,6 @@ while num_attempts != 0 and not discovered_word:
         drawHangman(counter)
 
 
-
-
     print_word_status(hidden_word_char)
 
     winner_loser(discovered_word,num_attempts)
