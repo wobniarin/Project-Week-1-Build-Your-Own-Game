@@ -1,6 +1,6 @@
 <img src="https://bit.ly/2VnXWr2" alt="Ironhack Logo" width="100"/>
 
-# Netflix Series Hangman
+# Ice-cream flavors Hangman
 *Íngrid Munné Collado*
 
 *Data Analytics Bootcamp. June 2019. Ironhack Barcelona*
@@ -17,7 +17,8 @@
 This is the first project developed during the Full-Time Data Analytics Bootcamp at Ironhack Barcelona. In this case, the main idea is to develop the Hangman game to play against the computer. 
 The player has to guess the ice-cream flavor that has been hidden by the computer. Are you able to guess the hidden word without mistaking 6 attempts? 
 
-<img src="https://as1.ftcdn.net/jpg/00/72/50/88/500_F_72508891_FseW5jo5VI8JGHjU0PJ7OgU9G8ZM5xiA.jpg2" alt="Hangman" width="100"/>
+![Hangman link information](hangman.jpg)
+
 
 ### Rules of the game
 
