@@ -44,7 +44,7 @@ def welcome_message():
     print("""These are the rules of the game: 
 
         You play against the computer
-        There's no limit of time, but there's a limit on attempts: 9
+        There's no limit of time, but there's a limit on attempts: 6
         The computer will print all the letters that have been told and are wrong
 
         GOOD LUCK! (:
@@ -52,7 +52,9 @@ def welcome_message():
     """)
 
 def random_word():
-    list_of_words = ['cookies', 'stracciatella', 'strawberry', 'chocolate', 'vanilla', 'milk', 'lemon']
+    list_of_words = ['cookies', 'stracciatella', 'strawberry', 'chocolate', 'vanilla', 'milk', 'lemon', 'nutella',
+                     'cheesecake', 'coffee', 'coconut', 'banana', 'pistachio', 'almond', 'caramel', 'tiramisu', 'brownie',
+                     'blueberry', 'creme', 'peppermint', 'hazelnut', 'horchata', 'oreo']
 
     return random.choice(list_of_words)
 
