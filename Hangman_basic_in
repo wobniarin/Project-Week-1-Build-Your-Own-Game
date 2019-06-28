@@ -168,13 +168,15 @@ while num_attempts != 0 and not discovered_word:
 
         if hidden_word == hidden_word_char:
             discovered_word = True
+
     elif not is_valid:
         continue
 
     #if letter is wrong
-    elif user_letter not in hidden_word and user_letter not in missed_letters:
+    elif is_valid and user_letter not in hidden_word and user_letter not in missed_letters:
+
         print("This letter is not in the word!")
-        missed_letters.append(user_letter.upper())
+        missed_letters.append(user_letter)
 
         print_letters(missed_letters)
 
