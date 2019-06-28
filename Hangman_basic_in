@@ -2,6 +2,8 @@
 
 import random
 import turtle
+import sys
+import time
 
 ###################### FUNCTION DEFINITION
 
@@ -14,7 +16,6 @@ def initialize():
     counter = 0  # counter to draw the hangman
 
     return num_attempts, missed_letters, guessed_letters, discovered_word, hidden_word_char, counter
-
 
 
 def index_character(hidden_word, user_letter):
@@ -31,7 +32,7 @@ def replace_char(hidden_word_char, letter_index, user_letter):
 
 
 def print_word_status(hidden_word_char):
-    print(*hidden_word_char, sep=" ")
+    print(*hidden_word_char.upper(), sep=" ")
     print("")
 
 
@@ -55,6 +56,14 @@ def random_word():
 
     return random.choice(list_of_words)
 
+def new_attempt(num_attempts):
+    print(f"Remaining attemps: {num_attempts}")
+    user_choice = input("Write the letter you want to guess: ")
+    return user_choice.lower()
+
+def initial_hint(hidden_word_char):
+    print("HINT: You should discover the hidden ice-cream flavor")
+    print_word_status(hidden_word_char)
 
 def valid_letter(letter):
     validation = True
@@ -69,14 +78,6 @@ def valid_letter(letter):
         validation = False
     return validation
 
-def new_attempt(num_attempts):
-    print(f"Remaining attemps: {num_attempts}")
-    user_choice = input("Write the letter you want to guess: ")
-    return user_choice.lower()
-
-def initial_hint(hidden_word_char):
-    print("HINT: You should discover the hidden ice-cream flavor")
-    print_word_status(hidden_word_char)
 
 def draw_Hangman(counter):
     def draw_Noose():
@@ -131,10 +132,11 @@ def draw_Hangman(counter):
 def winner_loser(discovered_word, num_attempts):
     if discovered_word == True:
         print("Congratulations! You've won!")
+        time.sleep(4.0)
     elif num_attempts == 0 :
         print("I'm sorry, you're DEAD X(")
-
-####################################### GAME ##########################################################################
+        time.sleep(4.0)
+####################################### GAME ##############################################################
 
 welcome_message()
 
