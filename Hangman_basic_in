@@ -5,6 +5,18 @@ import turtle
 
 ###################### FUNCTION DEFINITION
 
+def initialize():
+    num_attempts = 5  # number of attempts
+    missed_letters = []  # list of the missed letters
+    guessed_letters = []  # list of guessed letters
+    discovered_word = False  # the word has been discovered
+    hidden_word_char = '_' * len(hidden_word)
+    counter = 0  # counter to draw the hangman
+
+    return num_attempts, missed_letters, guessed_letters, discovered_word, hidden_word_char, counter
+
+
+
 def index_character(hidden_word, user_letter):
 
     letter_index = [index for index, letter in enumerate(hidden_word) if letter == user_letter]
@@ -21,7 +33,6 @@ def replace_char(hidden_word_char, letter_index, user_letter):
 def print_word_status(hidden_word_char):
     print(*hidden_word_char, sep=" ")
     print("")
-
 
 
 def welcome_message():
@@ -67,8 +78,8 @@ def initial_hint(hidden_word_char):
     print("HINT: You should discover the hidden ice-cream flavor")
     print_word_status(hidden_word_char)
 
-def drawHangman(counter):
-    def drawNoose():
+def draw_Hangman(counter):
+    def draw_Noose():
         turtle.speed(10)
         turtle.color("Black")
         turtle.forward(120)
@@ -81,12 +92,12 @@ def drawHangman(counter):
         turtle.forward(30)
         turtle.right(90)
 
-    def drawHead():
+    def draw_Head():
         turtle.circle(15)
         turtle.circle(15, 180)  # draw a semicircle
         turtle.right(90)
 
-    def drawArms():
+    def draw_Arms():
         turtle.forward(5)
         turtle.left(90)
         turtle.forward(20)
@@ -94,10 +105,10 @@ def drawHangman(counter):
         turtle.forward(20)
         turtle.right(90)
 
-    def drawTorso():
+    def draw_Torso():
         turtle.forward(30)
 
-    def drawLegs():
+    def draw_Legs():
         turtle.left(45)
         turtle.forward(30)
         turtle.forward(-30)
@@ -107,17 +118,15 @@ def drawHangman(counter):
         turtle.left(45)
 
     if counter == 1:
-        drawNoose()
+        draw_Noose()
     elif counter == 2:
-        drawHead()
+        draw_Head()
     elif counter == 3:
-        drawArms()
+        draw_Arms()
     elif counter == 4:
-        drawTorso()
+        draw_Torso()
     elif counter == 5:
-        drawLegs()
-
-
+        draw_Legs()
 
 def winner_loser(discovered_word, num_attempts):
     if discovered_word == True:
@@ -131,17 +140,11 @@ welcome_message()
 
 hidden_word = random_word()
 
-num_attempts = 5  # number of attempts
-missed_letters= [] # list of the missed letters
-guessed_letters = [] #list of guessed letters
-discovered_word = False #the word has been discovered
-hidden_word_char = '_' * len(hidden_word)
-counter = 0   # counter to draw the hangman
+num_attempts, missed_letters, guessed_letters, discovered_word, hidden_word_char, counter = initialize()
 
 #### Game play
 
 initial_hint(hidden_word_char)
-
 
 while num_attempts != 0 and not discovered_word:
 
@@ -169,7 +172,7 @@ while num_attempts != 0 and not discovered_word:
         print(f"Wrong letters: {missed_letters}")
         num_attempts -= 1
         counter += 1
-        drawHangman(counter)
+        draw_Hangman(counter)
 
 
     print_word_status(hidden_word_char)
