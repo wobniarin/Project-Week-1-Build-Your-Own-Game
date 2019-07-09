@@ -4,19 +4,6 @@ import sys
 import time
 
 
-def initialize():
-    num_attempts = 5  # number of attempts
-    missed_letters = []  # list of the missed letters
-    guessed_letters = []  # list of guessed letters
-    discovered_word = False  # the word has been discovered
-    hidden_word = random_word()
-    hidden_word_char = '_' * len(hidden_word)
-    counter = 0  # counter to draw the hangman
-
-    return hidden_word, num_attempts, missed_letters, guessed_letters, discovered_word, hidden_word_char, counter
-
-
-
 def welcome_message():
     player_name = input("Type your name: ")
     hangman_type = 'Ice-cream flavors'
@@ -32,9 +19,18 @@ def welcome_message():
 
     """)
 
-def index_character(hidden_word, user_letter):
-    letter_index = [index for index, letter in enumerate(hidden_word) if letter == user_letter]
-    return letter_index
+
+def initialize():
+    num_attempts = 5  # number of attempts
+    missed_letters = []  # list of the missed letters
+    guessed_letters = []  # list of guessed letters
+    discovered_word = False  # the word has been discovered
+    hidden_word = random_word()
+    hidden_word_char = '_' * len(hidden_word)
+    counter = 0  # counter to draw the hangman
+
+    return hidden_word, num_attempts, missed_letters, guessed_letters, discovered_word, hidden_word_char, counter
+
 
 def random_word():
     list_of_words = ['cookies', 'stracciatella', 'strawberry', 'chocolate', 'vanilla', 'milk', 'lemon', 'nutella',
@@ -42,6 +38,11 @@ def random_word():
                      'blueberry', 'creme', 'peppermint', 'hazelnut', 'horchata', 'oreo']
 
     return random.choice(list_of_words)
+
+
+def index_character(hidden_word, user_letter):
+    letter_index = [index for index, letter in enumerate(hidden_word) if letter == user_letter]
+    return letter_index
 
 
 def print_word_status(hidden_word_char):
@@ -132,8 +133,6 @@ def draw_Hangman(counter):
         draw_Torso()
     elif counter == 5:
         draw_Legs()
-
-
 
 
 def winner_loser(discovered_word, num_attempts):
