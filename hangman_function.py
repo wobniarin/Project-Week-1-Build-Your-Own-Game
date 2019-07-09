@@ -1,44 +1,25 @@
-############################################# Hangman game #############################################################
-
 import random
 import turtle
 import sys
+import time
 
-
-###################### FUNCTION DEFINITION
 
 def initialize():
     num_attempts = 5  # number of attempts
     missed_letters = []  # list of the missed letters
     guessed_letters = []  # list of guessed letters
     discovered_word = False  # the word has been discovered
+    hidden_word = random_word()
     hidden_word_char = '_' * len(hidden_word)
     counter = 0  # counter to draw the hangman
 
-    return num_attempts, missed_letters, guessed_letters, discovered_word, hidden_word_char, counter
+    return hidden_word, num_attempts, missed_letters, guessed_letters, discovered_word, hidden_word_char, counter
 
-
-def index_character(hidden_word, user_letter):
-
-    letter_index = [index for index, letter in enumerate(hidden_word) if letter == user_letter]
-
-    return letter_index
-
-
-def replace_char(hidden_word_char, letter_index, user_letter):
-    for i in letter_index:
-        hidden_word_char = hidden_word_char[0:i]+ user_letter + hidden_word_char[i+1:]
-    return hidden_word_char
-
-
-def print_word_status(hidden_word_char):
-    print(*hidden_word_char.upper(), sep=" ")
-    print("")
 
 
 def welcome_message():
     player_name = input("Type your name: ")
-    hangman_type= 'Ice-cream flavors'
+    hangman_type = 'Ice-cream flavors'
     print(f"Hello {player_name}. You are going to play the {hangman_type} hangman game")
 
     print("""These are the rules of the game: 
@@ -48,8 +29,12 @@ def welcome_message():
         The computer will print all the letters that have been told and are wrong
 
         GOOD LUCK! (:
-    
+
     """)
+
+def index_character(hidden_word, user_letter):
+    letter_index = [index for index, letter in enumerate(hidden_word) if letter == user_letter]
+    return letter_index
 
 def random_word():
     list_of_words = ['cookies', 'stracciatella', 'strawberry', 'chocolate', 'vanilla', 'milk', 'lemon', 'nutella',
@@ -58,16 +43,23 @@ def random_word():
 
     return random.choice(list_of_words)
 
-def new_attempt(num_attempts):
-    print(f"Remaining attemps: {num_attempts}")
-    user_choice = input("Write the letter you want to guess: ")
-    return user_choice.lower()
+
+def print_word_status(hidden_word_char):
+    print(*hidden_word_char.upper(), sep=" ")
+    print("")
+
 
 def initial_hint(hidden_word_char):
     print("HINT: You should discover the hidden ice-cream flavor")
     print_word_status(hidden_word_char)
 
-def valid_letter(letter):
+
+def new_attempt(num_attempts):
+    print(f"Remaining attemps: {num_attempts}")
+    user_choice = input("Write the letter you want to guess: ")
+    return user_choice.lower()
+
+def valid_letter(letter,guessed_letters, missed_letters):
     validation = True
     if not letter.isalpha(): # not alphabetic value
         print('Please, enter only a LETTER')
@@ -80,8 +72,14 @@ def valid_letter(letter):
         validation = False
     return validation
 
-def print_letters( letter_list):
 
+def replace_char(hidden_word_char, letter_index, user_letter):
+    for i in letter_index:
+        hidden_word_char = hidden_word_char[0:i]+ user_letter + hidden_word_char[i+1:]
+    return hidden_word_char
+
+
+def print_letters( letter_list):
     print(f"Wrong letters:  {' '.join(letter_list)}")
 
 
@@ -135,6 +133,9 @@ def draw_Hangman(counter):
     elif counter == 5:
         draw_Legs()
 
+
+
+
 def winner_loser(discovered_word, num_attempts):
     if discovered_word == True:
         print("Congratulations! You've won!")
@@ -142,57 +143,3 @@ def winner_loser(discovered_word, num_attempts):
     elif num_attempts == 0 :
         print("I'm sorry, you're DEAD X(")
         time.sleep(4.0)
-
-####################################### GAME ##############################################################
-
-welcome_message()
-
-hidden_word = random_word()
-
-num_attempts, missed_letters, guessed_letters, discovered_word, hidden_word_char, counter = initialize()
-
-#### Game play
-
-initial_hint(hidden_word_char)
-
-while num_attempts != 0 and not discovered_word:
-
-    user_letter = new_attempt(num_attempts)
-
-    is_valid = valid_letter(user_letter)
-
-    #if letter is on the word
-    if  is_valid and user_letter in hidden_word and user_letter not in guessed_letters:
-        print("You're right!")
-        guessed_letters.append(user_letter)
-
-        letter_index = index_character(hidden_word, user_letter)
-        hidden_word_char = replace_char(hidden_word_char, letter_index, user_letter)
-
-        if hidden_word == hidden_word_char:
-            discovered_word = True
-
-    elif not is_valid:
-        continue
-
-    #if letter is wrong
-    elif is_valid and user_letter not in hidden_word and user_letter not in missed_letters:
-
-        print("This letter is not in the word!")
-        missed_letters.append(user_letter)
-
-        print_letters(missed_letters)
-
-        num_attempts -= 1
-        counter += 1
-
-        draw_Hangman(counter)
-
-
-    print_word_status(hidden_word_char)
-
-    winner_loser(discovered_word,num_attempts)
-
-
-
-
