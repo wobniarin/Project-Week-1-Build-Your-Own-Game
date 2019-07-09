@@ -18,7 +18,7 @@ This is the first project developed during the Full-Time Data Analytics Bootcamp
 The player has to guess the ice-cream flavor that has been hidden by the computer. Are you able to guess the hidden word without mistaking 6 attempts? 
 
 ![Hangman link information](hangman.jpg)
-
+![icecream](icecream.jpg)
 
 ### Rules of the game
 
